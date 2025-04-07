@@ -1,0 +1,34 @@
+# Compilados
+cub3D
+*.o
+*.a
+*.out
+
+# Objetos
+obj/
+inc/libft/obj/
+inc/libft/*.a
+
+# MLX42 build dir
+inc/MLX42/build/
+
+# Archivos generados por CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Archivos de backup o swap
+*~
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# VSCode o editores
+.vscode/
+.idea/
+
+# Otros
+*.log
