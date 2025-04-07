@@ -31,3 +31,4 @@ cmake_install.cmake
 
 # Otros
 *.log
+src/info

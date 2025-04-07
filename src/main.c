@@ -19,42 +19,43 @@
 #define WIN_WIDTH 640
 #define WIN_HEIGHT 480
 
-mlx_image_t *g_img = NULL;
-
-// Prototipo del render
 
 
 // Hook para MLX
 void game_loop(void *param)
 {
-	(void)param;
-	render_frame();
+	render_frame((mlx_image_t *)param);
 }
+
+//mlx_t* is a struct containing the current window instance
 
 int main(void)
 {
-	mlx_t *mlx;
+	mlx_t *mlx = NULL;
 
-	// Inicializar MLX y ventana
+	//	Initialize and run a new window instance.
 	mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3D - Raycasting Test", true);
 	if (!mlx)
 	{
-		fprintf(stderr, "MLX init error\n");
+		printf("MLX init error\n");
 		exit(EXIT_FAILURE);
 	}
 
+	mlx_image_t *img = NULL;
 	// Crear imagen
-	g_img = mlx_new_image(mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (!g_img || (mlx_image_to_window(mlx, g_img, 0, 0) < 0))
+	img = mlx_new_image(mlx, WIN_WIDTH, WIN_HEIGHT);
+	// Display an instance of the image
+	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 	{
-		fprintf(stderr, "Image error\n");
+		printf("Image error\n");
 		exit(EXIT_FAILURE);
 	}
 
 	// Dibujar un primer frame
-	mlx_loop_hook(mlx, game_loop, NULL);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	mlx_loop_hook(mlx, game_loop, img);
+	mlx_loop(mlx); //Keep the window open as long as a shutdown is not requested.
+	mlx_delete_image(mlx, img);
+	mlx_terminate(mlx); // Destroy and clean up all images and mlx resources.
 	return (EXIT_SUCCESS);
 }
 

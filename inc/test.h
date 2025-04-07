@@ -1,6 +1,7 @@
 #ifndef TEST_H
 # define TEST_H
 
+# include "MLX42/MLX42.h"
 # include <libft/libft.h>
 # include <math.h>
 
@@ -16,7 +17,7 @@ extern float player_y;
 extern char player_dir;
 
 
-void render_frame(void);
+void render_frame(mlx_image_t *img);
 
 
 #endif

@@ -5,9 +5,7 @@
 #define WIN_WIDTH 640
 #define WIN_HEIGHT 480
 
-extern mlx_image_t *g_img;
-
-void	render_frame(void)
+void	render_frame(mlx_image_t *img)
 {
 	for (int x = 0; x < WIN_WIDTH; x++)
 	{
@@ -102,6 +100,6 @@ void	render_frame(void)
 
 		// 8. Dibujar la línea vertical
 		for (int y = draw_start; y <= draw_end; y++)
-			mlx_put_pixel(g_img, x, y, 0xFFFFFFFF); // blanco por ahora
+			mlx_put_pixel(img, x, y, 0xFFFFFFFF); // blanco por ahora
 	}
 }
