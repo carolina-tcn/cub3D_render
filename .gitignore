@@ -16,7 +16,6 @@ inc/MLX42/build/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
-Makefile
 
 # Archivos de backup o swap
 *~
