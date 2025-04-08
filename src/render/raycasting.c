@@ -2,11 +2,11 @@
 #include "test.h"
 #include <math.h>
 
-#define WIN_WIDTH 640
-#define WIN_HEIGHT 480
+#define WIN_WIDTH 320
+#define WIN_HEIGHT 200
 
 void	render_frame(mlx_image_t *img)
-{
+{	//loop between columns
 	for (int x = 0; x < WIN_WIDTH; x++)
 	{
 		// 1. Calcular la dirección del rayo para esta columna
