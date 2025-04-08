@@ -1,9 +1,4 @@
-#include "MLX42/MLX42.h"
-#include "test.h"
-#include <math.h>
-
-#define WIN_WIDTH 320
-#define WIN_HEIGHT 200
+#include "cub3d.h"
 
 void	render_frame(mlx_image_t *img)
 {	//loop between columns
