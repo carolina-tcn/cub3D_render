@@ -13,38 +13,46 @@
 #include "cub3d.h"
 
 // Hook para MLX
-void game_loop(void *param)
+void	game_loop(void *param)
 {
-	render_frame((mlx_image_t *)param);
+	t_data	*data = (t_data *)param;
+	render_frame(data);
 }
 
-//mlx_t* is a struct containing the current window instance
-
-int main(void)
+int	main(void)
 {
-	mlx_t *mlx = NULL;
-	mlx_image_t *img = NULL;
+	t_data	data;
+
+	//init data
 
 	//	Initialize and run a new window instance.
-	mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3D - Raycasting Test", true);
-	if (!mlx)
+	data.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, "cub3D - Raycasting Test", true);
+	if (!data.mlx)
 	{
-		printf("MLX init error\n");
+		printf("MLX init error\n"); //gestionar ERRORES
 		exit(EXIT_FAILURE);
 	}
 	// Crear imagen
-	img = mlx_new_image(mlx, WIN_WIDTH, WIN_HEIGHT);
+	data.img = mlx_new_image(data.mlx, WIN_WIDTH, WIN_HEIGHT);
 	// Display an instance of the image
-	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+	if (!data.img || (mlx_image_to_window(data.mlx, data.img, 0, 0) < 0))
 	{
-		printf("Image error\n");
+		printf("Image error\n");  //gestionar ERRORES
+		mlx_terminate(data.mlx);
 		exit(EXIT_FAILURE);
 	}
 
-	// Dibujar un primer frame
-	mlx_loop_hook(mlx, game_loop, img);
-	mlx_loop(mlx); //Keep the window open as long as a shutdown is not requested.
-	mlx_delete_image(mlx, img);
-	mlx_terminate(mlx); // Destroy and clean up all images and mlx resources.
+	//PARTE HARDCODEADA PLAYER Y MAP
+	data.player.position_x = player_x;
+	data.player.position_y = player_y;
+	init_player(&data.player, player_dir);
+
+	// hook bucle juego
+	mlx_loop_hook(data.mlx, game_loop, &data);
+	mlx_loop(data.mlx); //Keep the window open as long as a shutdown is not requested.
+	
+	//clean all, clean data
+	mlx_delete_image(data.mlx, data.img);
+	mlx_terminate(data.mlx); // Destroy and clean up all images and mlx resources.
 	return (EXIT_SUCCESS);
 }
