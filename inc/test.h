@@ -1,11 +1,6 @@
 #ifndef TEST_H
 # define TEST_H
 
-# include "MLX42/MLX42.h"
-# include <libft/libft.h>
-# include <math.h>
-
-
 # define MAP_WIDTH 6
 # define MAP_HEIGHT 5
 
