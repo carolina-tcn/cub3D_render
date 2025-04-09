@@ -5,6 +5,13 @@ uint32_t get_rgba_color(int r, int g, int b)
 	return ((r & 0xFF) << 24) | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | 0xFF;
 }
 
+// Hook para MLX
+void	game_loop(void *param)
+{
+	t_data	*data = (t_data *)param;
+	render_frame(data);
+}
+
 void	render_frame(t_data *data)
 {
 	int		x;

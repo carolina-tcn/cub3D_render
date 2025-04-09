@@ -9,8 +9,6 @@
 //player_x = x + 0.5;
 //player_y = y + 0.5;
 
-
-
 void	calculate_step_and_side_dist(t_ray *ray)
 {
 	if (ray->ray_dir_x < 0)

@@ -12,13 +12,7 @@
 
 #include "cub3d.h"
 
-// Hook para MLX
-void	game_loop(void *param)
-{
-	t_data	*data = (t_data *)param;
-	render_frame(data);
-}
-
+//PRUEBA W EVENT
 void key_handler(mlx_key_data_t keydata, void *param)
 {
 	t_data *data = (t_data *)param;

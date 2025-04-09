@@ -68,6 +68,7 @@ typedef struct  s_data
     t_player    player;
 }   t_data;
 
+//Ray-casting
 void    init_player(t_player *player, char dir);
 void	init_ray(t_ray *ray, t_player *player, int x);
 void	calculate_step_and_side_dist(t_ray *ray);
