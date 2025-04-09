@@ -19,6 +19,22 @@ void	game_loop(void *param)
 	render_frame(data);
 }
 
+void key_handler(mlx_key_data_t keydata, void *param)
+{
+	t_data *data = (t_data *)param;
+	double move_speed = 0.1;
+
+	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+	{
+		if (keydata.key == MLX_KEY_W)
+		{
+			// Movimiento hacia adelante
+			data->player.position_x += data->player.direction_x * move_speed;
+			data->player.position_y += data->player.direction_y * move_speed;
+		}
+	}
+}
+
 int	main(void)
 {
 	t_data	data;
@@ -47,10 +63,13 @@ int	main(void)
 	data.player.position_y = player_y;
 	init_player(&data.player, player_dir);
 
+
 	// hook bucle juego
 	mlx_loop_hook(data.mlx, game_loop, &data);
+	mlx_key_hook(data.mlx, key_handler, &data);
 	mlx_loop(data.mlx); //Keep the window open as long as a shutdown is not requested.
-	
+
+
 	//clean all, clean data
 	mlx_delete_image(data.mlx, data.img);
 	mlx_terminate(data.mlx); // Destroy and clean up all images and mlx resources.

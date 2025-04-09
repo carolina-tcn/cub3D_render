@@ -63,7 +63,9 @@ OBJ_DIR		= obj/
 #______Sources_____#
 SRC_F 		:= main.c \
          		test/test.c \
-				render/raycasting.c
+				render/raycasting.c \
+				render/raycasting_init.c \
+				render/render_loop.c
 
 SRC			= $(addprefix $(SRC_DIR), $(SRC_F))
 OBJ			= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

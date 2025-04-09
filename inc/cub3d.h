@@ -5,6 +5,7 @@
 # include <math.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <stdint.h>
 # include "MLX42/MLX42.h"
 # include "test.h"
 
@@ -73,5 +74,8 @@ void	calculate_step_and_side_dist(t_ray *ray);
 void	perform_dda(t_ray *ray);
 void	calculate_projection(t_ray *ray);
 void	render_frame(t_data *data);
+void	game_loop(void *param);
+
+void    key_handler(mlx_key_data_t keydata, void *param);
 
 #endif
