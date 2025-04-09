@@ -51,7 +51,7 @@ typedef struct  s_ray
 	int		side;
 
 	// Distancia perpendicular al muro
-	double	perp_wall_dist;
+	double  perp_wall_dist;
 
 	// Para la altura de la línea a pintar (más adelante)
 	int		line_height;
@@ -62,8 +62,8 @@ typedef struct  s_ray
 //mlx_t* is a struct containing the current window instance
 typedef struct  s_data
 {
-    mlx_t			*mlx;
-    mlx_image_t		*img;    
+    mlx_t       *mlx;
+    mlx_image_t *img;    
     t_player    player;
 }   t_data;
 

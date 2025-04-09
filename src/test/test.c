@@ -8,7 +8,7 @@ char g_map[MAP_HEIGHT][MAP_WIDTH + 1] = {
 	"111111"
 };
 
-int floor_color[3] = {120, 120, 120};
+int floor_color[3] = {120, 80, 40};
 int ceiling_color[3] = {30, 30, 30};
 
 float player_x = 4.5f;

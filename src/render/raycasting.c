@@ -9,6 +9,14 @@
 //player_x = x + 0.5;
 //player_y = y + 0.5;
 
+#include <stdint.h>
+
+uint32_t get_rgba_color(int r, int g, int b)
+{
+	return ((r & 0xFF) << 24) | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | 0xFF;
+}
+
+//DEFINING PROJECTION ATTRIBUTES
 void	init_player(t_player *player, char dir)
 {
 	if (dir == 'N')
@@ -40,9 +48,9 @@ void	init_player(t_player *player, char dir)
 		player->plane_y = -0.66;
 	}
 }
-
+//🔦 STEP 3: FINDING WALLS (LANZAR RAYOS)
 void	init_ray(t_ray *ray, t_player *player, int x)
-{
+{//camera_x ajusta el ángulo del rayo.
 	double	camera_x = 2 * x / (double)WIN_WIDTH - 1;
 		// Dirección del rayo
 	ray->ray_dir_x = player->direction_x + player->plane_x * camera_x;
@@ -89,7 +97,7 @@ void	calculate_step_and_side_dist(t_ray *ray)
 		ray->side_dist_y = (ray->ray_map_y + 1.0 - ray->ray_pos_y) * ray->delta_dist_y;
 	}
 }
-
+//Se usa DDA para detectar colisiones con muros.
 void	perform_dda(t_ray *ray)
 {
 	int hit = 0;
@@ -112,7 +120,7 @@ void	perform_dda(t_ray *ray)
 			hit = 1;
 	}
 }
-
+//📏 STEP 4: FINDING DISTANCE TO WALLS
 void	calculate_projection(t_ray *ray)
 {
 	if (ray->side == 0)
@@ -122,7 +130,7 @@ void	calculate_projection(t_ray *ray)
 
 	if (ray->perp_wall_dist < 0.0001)
 		ray->perp_wall_dist = 0.0001;
-
+		//STEP 5: DRAWING WALLS
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
 
 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
@@ -147,12 +155,32 @@ void	render_frame(t_data *data)
 		perform_dda(&ray);
 		calculate_projection(&ray);
 
-		// Dibujar pared vertical
-		int	y = ray.draw_start;
+		int y = 0;
+		uint32_t ceil_color = get_rgba_color(ceiling_color[0], ceiling_color[1], ceiling_color[2]);
+		//Dibujar techo
+		while (y < ray.draw_start)
+		{
+			mlx_put_pixel(data->img, x, y, ceil_color);
+			y++;
+		}
+		y = ray.draw_start;
+		//Dibujar pared
 		while (y < ray.draw_end)
 		{
-			uint32_t color = (ray.side == 1) ? 0xFF0000FF : 0x880000FF;
+			uint32_t color;
+			if (ray.side == 1)
+				color = 0xFF0000FF;
+			else
+				color = 0x880000FF;
 			mlx_put_pixel(data->img, x, y, color);
+			y++;
+		}
+		uint32_t floor_col = get_rgba_color(floor_color[0], floor_color[1], floor_color[2]);
+		y = ray.draw_end;
+		// Dibujar suelo
+		while (y < WIN_HEIGHT)
+		{
+			mlx_put_pixel(data->img, x, y, floor_col);
 			y++;
 		}
 		x++;

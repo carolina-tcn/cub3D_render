@@ -13,6 +13,4 @@ extern float player_x;
 extern float player_y;
 extern char player_dir;
 
-
-
 #endif
